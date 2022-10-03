@@ -1,0 +1,58 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/saps-dispatcher:
+      branch: develop
+      repo: https://github.com/EOSC-synergy/saps-dispatcher
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: 1.7.0_no_kubectl
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/EOSC-synergy/saps-dispatcher git:
+        commands:
+        - /usr/bin/env sh .sqa/script.queasy-wheat-yak.sh
+        container: qc.acc_snoopy-azure-squirrel
+  QC.Doc:
+    repos:
+      github.com/EOSC-synergy/saps-dispatcher find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.greasy-puce-grouse.sh
+        container: qc.doc_lanky-cream-grouse
+      github.com/EOSC-synergy/saps-dispatcher git:
+        commands:
+        - /usr/bin/env sh .sqa/script.shabby-gold-beetle.sh
+        container: qc.doc_freaky-lilac-mongrel
+      github.com/EOSC-synergy/saps-dispatcher markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.smelly-pink-fly.sh
+        container: qc.doc_woozy-russet-bobcat
+  QC.Lic:
+    repos:
+      github.com/EOSC-synergy/saps-dispatcher licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.lousy-cinnamon-lynx.sh
+        container: qc.lic_greasy-champagne-octopus
+  QC.Sec:
+    repos:
+      github.com/EOSC-synergy/saps-dispatcher bandit:
+        commands:
+        - /usr/bin/env sh .sqa/script.fuzzy-salmon-flounder.sh
+        container: qc.sec_boozy-brown-ocelot
+  QC.Sty:
+    repos:
+      github.com/EOSC-synergy/saps-dispatcher flake8:
+        commands:
+        - /usr/bin/env sh .sqa/script.lovely-chocolate-llama.sh
+        container: qc.sty_trippy-sapphire-dragonfly
+  QC.Ver:
+    repos:
+      github.com/EOSC-synergy/saps-dispatcher get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.lousy-thistle-dane.sh
+        container: qc.ver_cloudy-celadon-tetra
+timeout: 1800
